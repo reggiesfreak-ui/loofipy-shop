@@ -1,0 +1,8 @@
+# File & Folder yang harus DIABAIKAN oleh Git
+node_modules/
+loofipy.db
+uploads/
+.env
+*.env.local
+.DS_Store
+Thumbs.db

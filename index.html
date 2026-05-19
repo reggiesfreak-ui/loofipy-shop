@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loofipy - Preserve Your Memories in Acrylic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#314b4e",
+                        "on-surface": "#1b1c1a",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e9ddfd",
+                        "secondary-fixed-dim": "#afcccf",
+                        "on-primary-container": "#7b5365",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dbdad6",
+                        "surface-container-low": "#f4f4f0",
+                        "on-tertiary-fixed-variant": "#4b435c",
+                        "surface-container-highest": "#e3e2df",
+                        "on-tertiary-container": "#645b76",
+                        "surface-tint": "#7a5365",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#486366",
+                        "tertiary-fixed-dim": "#cdc1e1",
+                        "background": "#faf9f5",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#2f1121",
+                        "surface-bright": "#faf9f5",
+                        "primary-container": "#ffcce1",
+                        "surface": "#faf9f5",
+                        "primary-fixed": "#ffd8e7",
+                        "secondary-fixed": "#cbe8eb",
+                        "primary": "#7a5365",
+                        "on-primary": "#ffffff",
+                        "outline": "#817478",
+                        "surface-variant": "#e3e2df",
+                        "on-secondary-container": "#4e696c",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2f312e",
+                        "outline-variant": "#d2c2c7",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#031f22",
+                        "surface-container": "#efeeea",
+                        "on-surface-variant": "#4f4448",
+                        "surface-container-high": "#e9e8e4",
+                        "tertiary": "#635a75",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#1f182f",
+                        "tertiary-container": "#e1d5f5",
+                        "on-primary-fixed-variant": "#603c4d",
+                        "inverse-primary": "#eab9ce",
+                        "primary-fixed-dim": "#eab9ce",
+                        "inverse-on-surface": "#f2f1ed",
+                        "on-background": "#1b1c1a",
+                        "secondary-container": "#cbe8eb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-mobile": "20px",
+                        "base": "8px",
+                        "container-padding-desktop": "64px",
+                        "gutter": "24px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Sora"],
+                        "label-sm": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "body-md": ["Sora"],
+                        "headline-lg": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .ambient-glow {
+            box-shadow: 0 20px 40px rgba(122, 83, 101, 0.08);
+        }
+        .acrylic-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .acrylic-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 45%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 55%
+            );
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-4 inset-x-4 rounded-full h-16 bg-surface/70 backdrop-blur-xl dark:bg-surface-dim/70 flex justify-between items-center w-full px-6 max-w-7xl mx-auto z-50 border border-white/20 dark:border-white/10 shadow-[0_20px_40px_rgba(122,83,101,0.08)]">
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">Loofipy</span>
+</div>
+<div class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+<a class="text-primary font-semibold border-b-2 border-primary pb-1" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-all" href="#">Shop</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-all" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-all" href="#">About</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-white/40 dark:hover:bg-white/10 transition-all duration-300 rounded-full scale-95 active:scale-90 text-primary">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-white/40 dark:hover:bg-white/10 transition-all duration-300 rounded-full scale-95 active:scale-90 text-primary">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</nav>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-container-padding-mobile md:px-container-padding-desktop mb-section-gap">
+<div class="flex flex-col md:flex-row items-center gap-gutter">
+<div class="w-full md:w-1/2 flex flex-col items-start gap-8 order-2 md:order-1">
+<span class="bg-secondary-container text-on-secondary-container px-6 py-2 rounded-full font-label-sm text-label-sm">New Collection Live</span>
+<h1 class="font-display-lg text-display-lg md:text-[56px] text-on-surface leading-tight">
+                        Preserve Your <br/>
+<span class="text-primary">Memories in Acrylic</span>
+</h1>
+<p class="text-on-surface-variant text-body-md max-w-lg leading-relaxed">
+                        Transform your digital moments into tangible, glass-like keepsakes. From custom keychains to arched frames, we bring a soft, nostalgic glow to your favorite photos.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="bg-gradient-to-r from-[#ffd8e7] to-[#e1d5f5] text-on-primary-fixed-variant px-8 py-4 rounded-full font-label-sm text-label-sm shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            Create Your Custom Keychain
+                        </button>
+<button class="border border-outline-variant text-primary px-8 py-4 rounded-full font-label-sm text-label-sm hover:bg-surface-container-low transition-all">
+                            Browse Collection
+                        </button>
+</div>
+</div>
+<div class="w-full md:w-1/2 order-1 md:order-2">
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary-container/20 blur-3xl rounded-full"></div>
+<img alt="Hero image" class="relative rounded-xl w-full h-auto object-cover shadow-2xl glass-card p-2 transform group-hover:rotate-1 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLCOPEDcSqTcIp8XQNJAsw0dg2Rm8vTQCJwB1RxnZF9tTuN-kPMJKanfOzk80Q3wrvta_uT8OfcTqlCBW4pNOUke90fBkkO1rkQkzDn5tx1CWXb01CXXR7-jm2jVO-8fuFotBCYmkGqpWhTEQlY8ChQk9qgevsG1Z_6hXhQasFAr20idyk9HWkuyIfIC0EEoAHrGb8Oj5iW-TPiR0tTKnj1S0oy9C41pFr1zwv2YOLE0h5Qc_e1xsfYb_ppGrkucWwH_jHGMPVKYO1"/>
+<div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-lg shadow-xl hidden md:block">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">auto_awesome</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">5,000+ Happy Creators</p>
+<div class="flex gap-0.5 text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Featured Collection -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-7xl mx-auto px-container-padding-mobile md:px-container-padding-desktop">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Featured Collection</h2>
+<p class="text-on-surface-variant mt-2">Soft hues and translucent designs for every space.</p>
+</div>
+<a class="text-primary font-label-sm text-label-sm flex items-center gap-2 hover:translate-x-1 transition-transform" href="#">
+                        Explore Full Gallery <span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Large Feature: Arch Frames -->
+<div class="md:col-span-8 group">
+<div class="glass-card rounded-lg overflow-hidden h-[500px] flex flex-col p-8 relative ambient-glow">
+<div class="absolute top-0 right-0 p-8 z-10 text-right">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Acrylic Arch Frames</h3>
+<p class="text-on-surface-variant">Classic silhouette, modern clarity.</p>
+<span class="mt-4 inline-block px-4 py-2 bg-white/60 rounded-full font-label-sm text-label-sm text-primary">From $24.00</span>
+</div>
+<div class="mt-auto w-full h-3/4 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" data-alt="A collection of elegant acrylic picture frames with arched tops in soft pastel colors like mint, lavender, and sky blue. The frames stand on a clean, bright surface illuminated by gentle morning sunlight, creating soft shadows and translucent reflections. The overall aesthetic is minimalist, modern, and light-filled, perfectly matching a soft-focus interior design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRQeUZ90P6j-FKxugySMGOZs4N8esPVxDitnVdWnTWz7eL-vzYueh6qChe62pwZspEO1ZUqlfw1wixdIZvv2Pgztnj93JIpXVrEWZrY7zaGPSNpuvYKikDxiO2Rv257T1QLjdDt-dmgZpONHgoAFuGS_AVvSw6wln2ff9Rslk506lsa_EVge3w5ZOUkYqLNlUzjTXs2fkB-F6gpS-Ok-uiXWLb7x0agWPCcPzi_iJ7II2y8E0r9-MOy8Kwmvj4jjzXfv8C7Zrm_sMT"/>
+</div>
+</div>
+</div>
+<!-- Side Card 1: Photo Blocks -->
+<div class="md:col-span-4 group">
+<div class="glass-card rounded-lg overflow-hidden h-[500px] flex flex-col p-8 ambient-glow">
+<div class="mb-6">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Photo Blocks</h3>
+<p class="text-on-surface-variant">20mm thickness acrylic.</p>
+</div>
+<div class="flex-grow overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" data-alt="A thick, heavy crystal-clear acrylic photo block resting on a wooden desk. The block encases a beautiful landscape photograph, and the thick edges of the acrylic refract the light like a prism, creating a shimmering rainbow effect. The lighting is warm and natural, suggesting a cozy study or a bright living room environment with soft textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT1DV0mB7lvMDNqwKS87hJvm8g2XMcFXtooETvwxVRwTPGArr09vIqXC-X1jj_nc3QtZG1TIQiv6GDX4CQWxEnaGCaxRMdUyOBO2qCUIj6zeEIgVqMC7Rz4AkSkrnstqSYIby8qtFOG7yXfTXVvY6gXlboXS_hn3rxpHHIYxHtJFeIFXN9E1TgMT8hd-FNWBNBQQf_rcnz7UnHVxa6YGwdDYzwzhpif5hV_3XvschMXjCN5woJ5Dl2jvNeNZlTQNDeQcFRSBjgiLWK"/>
+</div>
+<button class="mt-6 w-full py-4 bg-tertiary-container text-on-tertiary-container rounded-full font-label-sm text-label-sm">Customise Block</button>
+</div>
+</div>
+<!-- Bottom Grid 1: Keychains -->
+<div class="md:col-span-4 group">
+<div class="glass-card rounded-lg h-[320px] p-6 flex flex-col gap-4 ambient-glow">
+<div class="h-40 rounded-lg overflow-hidden acrylic-shimmer">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" data-alt="A variety of custom-shaped acrylic keychains including stars, hearts, and clouds, hanging from a simple metal ring. Each keychain contains a tiny, high-resolution portrait or illustration with a pastel-colored border. The background is a soft, out-of-focus dreamscape of pink and purple silk ribbons, evoking a sense of nostalgia and personal gift-giving." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqELqvrK_bIWMSFRpMzQv2JZ1sLOQ6rGSML8NKPIBNANqpeb2uelCBvzsnYfMr-7nA_PiYvt4oLyAUDfORoQnE7P0GA1cuBHzQ5sSLr4jSph4Sado6jOYIlircB5gG8D_IWVYYEUIQ5tA8_mm1pEpEtJXe4c9852KoIXJsYxMZ-7Csck34ig_DFrkeS1z-yk4NXAfn1CUltitGSKpMYW991i_yLsV9s1RObuMcWij3mKWwTJBFwO5dKzoowVN-qw5cHld7rsswMy3h"/>
+</div>
+<div>
+<h4 class="font-headline-lg text-headline-lg text-on-surface">Mini Charms</h4>
+<p class="text-on-surface-variant text-sm">Perfect for your keys or bag.</p>
+</div>
+</div>
+</div>
+<!-- Bottom Grid 2: Desktop Stands -->
+<div class="md:col-span-8 group">
+<div class="bg-primary-container/30 rounded-lg h-[320px] p-8 flex flex-row items-center justify-between ambient-glow border border-white/40">
+<div class="w-1/2">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-2 block">Best Seller</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-4">Memory Stands</h3>
+<p class="text-on-surface-variant mb-6">Our signature interlocking desktop display.</p>
+<button class="bg-primary text-white px-6 py-3 rounded-full font-label-sm text-label-sm shadow-md">Shop Best Sellers</button>
+</div>
+<div class="w-1/2 h-full py-4 pl-4 overflow-hidden">
+<img class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-1000" data-alt="A stylish desktop arrangement featuring several interlocking acrylic pieces that form a multi-photo stand. The pieces are transparent with soft matte finishes in lavender and seafoam green. The setting is a bright, modern creative studio with hints of dried flowers and stationery in the background, creating an atmosphere of organized inspiration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRJm2glIfjXKMojgBIdL8X_aLsHf8k2cTd2D7i9-rG_unQMfKTBoAAcrP6F-nZ8rHCutbJyHAu0cMG-elJvl6c0ywdMwK4YMvGU-ioZFGRu_Akue2-uG8nHDvd6qD-4g2d-w6xOBB_rlh0oQFlBXHpv88bmAnDLHcDo2kg-KZ91TgLgq8GufSrkbPTilIxVpGCwTWgw88roQ-fZ-4PYe8FP1pHMUqcAmB--CEyLhrZHljQ6CgECEzQjCbSmKFWGe61zVKF6-4sYLL_"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Section -->
+<section class="max-w-7xl mx-auto px-container-padding-mobile md:px-container-padding-desktop py-section-gap">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">How it works</h2>
+<div class="w-24 h-1 bg-primary-container mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center text-center gap-6">
+<div class="w-20 h-20 bg-secondary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-4xl">upload</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">1. Upload</h3>
+<p class="text-on-surface-variant px-8">Select your favorite memory from your phone or social media.</p>
+</div>
+<div class="flex flex-col items-center text-center gap-6">
+<div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-4xl">edit_note</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">2. Personalise</h3>
+<p class="text-on-surface-variant px-8">Pick your shape, frame color, and add a custom date or message.</p>
+</div>
+<div class="flex flex-col items-center text-center gap-6">
+<div class="w-20 h-20 bg-tertiary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container text-4xl">auto_fix_high</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">3. Craft &amp; Deliver</h3>
+<p class="text-on-surface-variant px-8">We hand-finish every piece with premium crystal acrylic.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-low w-full py-16 border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-container-padding-mobile md:px-container-padding-desktop max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-lg text-headline-lg text-primary block mb-4">Loofipy</span>
+<p class="text-on-surface-variant text-body-md pr-8">
+                    Crafting memories into crystal clear moments. Every piece is made with soft memories and premium acrylic.
+                </p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest">Shop</h4>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">All Products</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Keychains</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Photo Blocks</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Arch Stands</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest">Support</h4>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Shipping</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Terms</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-body-md text-body-md" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest">Join the Club</h4>
+<p class="text-on-surface-variant text-sm mb-2">Get 10% off your first order.</p>
+<div class="flex gap-2">
+<input class="bg-surface rounded-full border-outline-variant focus:ring-primary focus:border-primary flex-grow text-sm px-4" placeholder="Email" type="email"/>
+<button class="bg-primary text-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-container-padding-mobile md:px-container-padding-desktop mt-16 pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-secondary dark:text-secondary-fixed-dim font-body-md text-body-md">© 2024 Loofipy Acrylics. Made with soft memories.</p>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">Notebook</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">share_reviews</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe md:hidden bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 h-20 border-t border-white/30 dark:border-white/10 shadow-[0_-10px_30px_rgba(122,83,101,0.1)]">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 scale-110 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant/50 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant/50 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant/50 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Account</span>
+</a>
+</nav>
+<script src="home.js"></script>
+<script src="cart.js"></script>
+<script src="checkout.js"></script>
+</body></html>

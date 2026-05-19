@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loofipy - Seller Login</title>
+<meta name="description" content="Masuk ke Seller Hub Loofipy untuk mengelola produk dan pesanan Anda."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "on-secondary-fixed-variant": "#314b4e",
+                    "on-surface": "#1b1c1a",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#e9ddfd",
+                    "secondary-fixed-dim": "#afcccf",
+                    "on-primary-container": "#7b5365",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#dbdad6",
+                    "surface-container-low": "#f4f4f0",
+                    "on-tertiary-fixed-variant": "#4b435c",
+                    "surface-container-highest": "#e3e2df",
+                    "on-tertiary-container": "#645b76",
+                    "surface-tint": "#7a5365",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#486366",
+                    "tertiary-fixed-dim": "#cdc1e1",
+                    "background": "#faf9f5",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#2f1121",
+                    "surface-bright": "#faf9f5",
+                    "primary-container": "#ffcce1",
+                    "surface": "#faf9f5",
+                    "primary-fixed": "#ffd8e7",
+                    "secondary-fixed": "#cbe8eb",
+                    "primary": "#7a5365",
+                    "on-primary": "#ffffff",
+                    "outline": "#817478",
+                    "surface-variant": "#e3e2df",
+                    "on-secondary-container": "#4e696c",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2f312e",
+                    "outline-variant": "#d2c2c7",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#031f22",
+                    "surface-container": "#efeeea",
+                    "on-surface-variant": "#4f4448",
+                    "surface-container-high": "#e9e8e4",
+                    "tertiary": "#635a75",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#1f182f",
+                    "tertiary-container": "#e1d5f5",
+                    "on-primary-fixed-variant": "#603c4d",
+                    "inverse-primary": "#eab9ce",
+                    "primary-fixed-dim": "#eab9ce",
+                    "inverse-on-surface": "#f2f1ed",
+                    "on-background": "#1b1c1a",
+                    "secondary-container": "#cbe8eb"
+                },
+                borderRadius: {
+                    DEFAULT: "1rem",
+                    lg: "2rem",
+                    xl: "3rem",
+                    full: "9999px"
+                },
+                fontFamily: {
+                    sora: ["Sora", "sans-serif"]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    * { font-family: 'Sora', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    /* Animated gradient background */
+    .bg-animated {
+        background: linear-gradient(135deg, #ffd8e7 0%, #e1d5f5 25%, #cbe8eb 50%, #ffd8e7 75%, #e1d5f5 100%);
+        background-size: 400% 400%;
+        animation: gradientShift 12s ease infinite;
+    }
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 32px 80px rgba(122, 83, 101, 0.15), 0 0 0 1px rgba(255,255,255,0.6) inset;
+    }
+
+    /* Floating orbs */
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        animation: floatOrb 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 400px; height: 400px; background: #ffd8e7; top: -100px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 350px; height: 350px; background: #e1d5f5; bottom: -80px; right: -80px; animation-delay: 3s; }
+    .orb-3 { width: 250px; height: 250px; background: #cbe8eb; top: 40%; right: 10%; animation-delay: 6s; }
+    @keyframes floatOrb {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* Input field styling */
+    .custom-input {
+        background: rgba(255,255,255,0.7);
+        border: 1.5px solid rgba(122,83,101,0.15);
+        transition: all 0.3s ease;
+        outline: none;
+    }
+    .custom-input:focus {
+        background: rgba(255,255,255,0.95);
+        border-color: #7a5365;
+        box-shadow: 0 0 0 4px rgba(122,83,101,0.08);
+    }
+    .custom-input.error {
+        border-color: #ba1a1a;
+        box-shadow: 0 0 0 4px rgba(186,26,26,0.08);
+    }
+
+    /* Login button */
+    .login-btn {
+        background: linear-gradient(135deg, #7a5365, #9c6b80);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .login-btn::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
+        transform: translateX(-100%);
+        transition: transform 0.5s ease;
+    }
+    .login-btn:hover::before { transform: translateX(100%); }
+    .login-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(122,83,101,0.35); }
+    .login-btn:active { transform: translateY(0px); }
+
+    /* Shake animation for error */
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+        20%, 40%, 60%, 80% { transform: translateX(6px); }
+    }
+    .shake { animation: shake 0.5s ease; }
+
+    /* Slide-in animation */
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(30px) scale(0.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .slide-in { animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+    /* Password toggle */
+    .password-toggle { cursor: pointer; user-select: none; }
+    .password-toggle:hover .material-symbols-outlined { color: #7a5365; }
+
+    /* Demo credentials pill */
+    .demo-pill {
+        background: rgba(122,83,101,0.08);
+        border: 1px solid rgba(122,83,101,0.15);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .demo-pill:hover { background: rgba(122,83,101,0.15); transform: scale(1.02); }
+</style>
+</head>
+<body class="min-h-screen overflow-hidden relative bg-animated">
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Back to Store Link -->
+    <a href="index.html" class="fixed top-6 left-6 z-50 flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold group">
+        <span class="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        Kembali ke Toko
+    </a>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex items-center justify-center px-4 py-16 relative z-10">
+        <div class="w-full max-w-md slide-in">
+
+            <!-- Logo & Header -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl shadow-lg mb-4 mx-auto">
+                    <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">storefront</span>
+                </div>
+                <h1 class="text-3xl font-bold text-on-surface tracking-tight">Seller Hub</h1>
+                <p class="text-on-surface-variant mt-2 text-sm">Masuk untuk mengelola toko Loofipy Anda</p>
+            </div>
+
+            <!-- Login Card -->
+            <div class="glass-card rounded-[2rem] p-8">
+
+                <!-- Error Alert (hidden by default) -->
+                <div id="error-alert" class="hidden mb-6 p-4 bg-error-container rounded-xl flex items-center gap-3">
+                    <span class="material-symbols-outlined text-error text-xl">error</span>
+                    <p id="error-message" class="text-error text-sm font-semibold"></p>
+                </div>
+
+                <!-- Success Alert (hidden by default) -->
+                <div id="success-alert" class="hidden mb-6 p-4 bg-secondary-container rounded-xl flex items-center gap-3">
+                    <span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                    <p class="text-secondary text-sm font-semibold">Login berhasil! Mengarahkan ke dashboard...</p>
+                </div>
+
+                <form id="login-form" novalidate>
+                    <!-- Email Field -->
+                    <div class="mb-5">
+                        <label for="email" class="block text-sm font-semibold text-on-surface mb-2">Email Penjual</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">mail</span>
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder="seller@loofipy.com"
+                                class="custom-input w-full pl-12 pr-4 py-3.5 rounded-xl text-on-surface text-sm"
+                                autocomplete="email"
+                            />
+                        </div>
+                        <p id="email-error" class="hidden text-error text-xs mt-1.5 ml-1">Masukkan email yang valid.</p>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-semibold text-on-surface mb-2">Password</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">lock</span>
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="Masukkan password Anda"
+                                class="custom-input w-full pl-12 pr-12 py-3.5 rounded-xl text-on-surface text-sm"
+                                autocomplete="current-password"
+                            />
+                            <button type="button" id="toggle-password" class="password-toggle absolute right-4 top-1/2 -translate-y-1/2">
+                                <span class="material-symbols-outlined text-on-surface-variant text-[20px]" id="eye-icon">visibility</span>
+                            </button>
+                        </div>
+                        <p id="password-error" class="hidden text-error text-xs mt-1.5 ml-1">Password tidak boleh kosong.</p>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center justify-between mb-6">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="remember-me" class="w-4 h-4 rounded accent-primary"/>
+                            <span class="text-sm text-on-surface-variant">Ingat saya</span>
+                        </label>
+                        <a href="#" class="text-sm text-primary font-semibold hover:underline">Lupa password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submit-btn" class="login-btn w-full py-4 rounded-full text-white font-bold text-sm tracking-wide shadow-lg">
+                        <span id="btn-text">Masuk ke Seller Hub</span>
+                        <span id="btn-loading" class="hidden items-center justify-center gap-2">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                            </svg>
+                            Memeriksa...
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="flex items-center gap-4 my-6">
+                    <div class="flex-1 h-px bg-outline-variant"></div>
+                    <span class="text-xs text-on-surface-variant font-semibold">AKUN DEMO</span>
+                    <div class="flex-1 h-px bg-outline-variant"></div>
+                </div>
+
+                <!-- Demo Credentials -->
+                <div class="space-y-2">
+                    <p class="text-xs text-on-surface-variant text-center mb-3">Klik untuk mengisi otomatis:</p>
+                    <button type="button" onclick="fillDemo('seller@loofipy.com', 'seller123')" class="demo-pill w-full p-3 rounded-xl flex items-center gap-3 text-left">
+                        <div class="w-8 h-8 bg-primary-container rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-primary text-[16px]">store</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-on-surface">Penjual Utama</p>
+                            <p class="text-xs text-on-surface-variant">seller@loofipy.com · seller123</p>
+                        </div>
+                    </button>
+                    <button type="button" onclick="fillDemo('admin@loofipy.com', 'admin2024')" class="demo-pill w-full p-3 rounded-xl flex items-center gap-3 text-left">
+                        <div class="w-8 h-8 bg-tertiary-container rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-tertiary text-[16px]">admin_panel_settings</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-on-surface">Admin</p>
+                            <p class="text-xs text-on-surface-variant">admin@loofipy.com · admin2024</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Register Link -->
+            <p class="text-center mt-6 text-sm text-on-surface-variant">
+                Belum punya akun penjual? 
+                <a href="#" class="text-primary font-bold hover:underline">Daftar Sekarang</a>
+            </p>
+        </div>
+    </div>
+
+<script src="seller-auth.js"></script>
+</body>
+</html>
