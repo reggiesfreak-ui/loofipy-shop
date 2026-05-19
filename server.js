@@ -7,11 +7,18 @@
  *  - REST API untuk auth dan produk
  *  - Upload gambar produk
  *  - CORS enabled untuk development
+ *  - Security headers (helmet)
+ *  - Rate limiting
  */
 
-const express = require('express');
-const cors    = require('cors');
-const path    = require('path');
+// Load environment variables
+require('dotenv').config();
+
+const express       = require('express');
+const cors          = require('cors');
+const helmet        = require('helmet');
+const rateLimit     = require('express-rate-limit');
+const path          = require('path');
 
 // Inisialisasi database (membuat loofipy.db + tabel + seed data)
 require('./database');
@@ -21,9 +28,30 @@ const productRoutes = require('./routes/products');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3000';
 
 // ─── MIDDLEWARE ───────────────────────────────────────────────────────────────
-app.use(cors());
+// Security headers
+app.use(helmet());
+
+// CORS configuration
+app.use(cors({
+  origin: NODE_ENV === 'production' ? CORS_ORIGIN : '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
+
+// Rate limiting (general)
+const generalLimiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'),
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100'),
+  message: 'Terlalu banyak request, coba lagi nanti.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(generalLimiter);
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -43,7 +71,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // ─── FALLBACK: Semua route lain → index.html ──────────────────────────────────
-app.get('/{*path}', (req, res) => {
+app.get('*', (req, res) => {
   // Jika request API yang tidak ditemukan, kembalikan 404 JSON
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ success: false, message: 'Endpoint tidak ditemukan.' });
@@ -62,13 +90,20 @@ app.use((err, req, res, next) => {
 });
 
 // ─── START ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log('\x1b[36m%s\x1b[0m', '==========================================');
   console.log('\x1b[32m%s\x1b[0m', `🚀 Loofipy Server (Express + SQLite)`);
+  console.log('\x1b[33m%s\x1b[0m', `📝 Environment: ${NODE_ENV.toUpperCase()}`);
   console.log('\x1b[33m%s\x1b[0m', `👉 Toko:       http://localhost:${PORT}`);
   console.log('\x1b[33m%s\x1b[0m', `👉 Seller Login: http://localhost:${PORT}/seller-login.html`);
   console.log('\x1b[33m%s\x1b[0m', `👉 API:        http://localhost:${PORT}/api/health`);
   console.log('\x1b[36m%s\x1b[0m', '==========================================');
   console.log('🔑 Demo: seller@loofipy.com / seller123');
   console.log('Press Ctrl+C to stop.\n');
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: closing HTTP server');
+  process.exit(0);
 });

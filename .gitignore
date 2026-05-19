@@ -1,8 +1,11 @@
 # File & Folder yang harus DIABAIKAN oleh Git
 node_modules/
 loofipy.db
+loofipy.db-shm
+loofipy.db-wal
 uploads/
 .env
+loopify.env
 *.env.local
 .DS_Store
 Thumbs.db

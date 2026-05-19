@@ -1,0 +1,85 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: loofipy-db
+    environment:
+      POSTGRES_USER: loofipy_user
+      POSTGRES_PASSWORD: loofipy_secure_password_change_me
+      POSTGRES_DB: loofipy_db
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loofipy_user -d loofipy_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - loofipy-network
+
+  # Loofipy API Backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: loofipy-api
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://loofipy_user:loofipy_secure_password_change_me@db:5432/loofipy_db
+      JWT_SECRET: ${JWT_SECRET:-change_this_with_secure_random_key}
+      CORS_ORIGIN: http://localhost:3000
+      LOG_LEVEL: info
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - loofipy-network
+    restart: unless-stopped
+
+  # Optional: pgAdmin untuk database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: loofipy-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@loofipy.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - loofipy-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+networks:
+  loofipy-network:
+    driver: bridge
+
+# Usage:
+# docker-compose up -d                    # Start all services
+# docker-compose down                     # Stop all services
+# docker-compose logs -f api              # View API logs
+# docker-compose ps                       # Show running containers
+# docker-compose exec db psql -U loofipy_user -d loofipy_db  # Access DB

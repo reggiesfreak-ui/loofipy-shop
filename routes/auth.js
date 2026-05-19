@@ -12,13 +12,14 @@ const bcrypt   = require('bcryptjs');
 const jwt      = require('jsonwebtoken');
 const db       = require('../database');
 const { authMiddleware } = require('../middleware/auth');
+const { authLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'loofipy_secret_key_2024';
 const JWT_EXPIRES = '7d';
 
 // ─── REGISTER ─────────────────────────────────────────────────────────────────
-router.post('/register', (req, res) => {
+router.post('/register', authLimiter, (req, res) => {
   const { name, email, password, store_name } = req.body;
 
   // Validasi input
@@ -62,7 +63,7 @@ router.post('/register', (req, res) => {
 });
 
 // ─── LOGIN ────────────────────────────────────────────────────────────────────
-router.post('/login', (req, res) => {
+router.post('/login', authLimiter, (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
